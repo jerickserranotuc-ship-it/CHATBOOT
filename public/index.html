@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Orientación sobre opciones de créditos para asalariados, independientes y empresarios." />
+  <meta name="theme-color" content="#103b48" />
+  <title>Agente de Venta de Créditos | Orientación de crédito</title>
+  <style>
+    :root {
+      --navy:#103b48; --blue:#165a69; --mint:#e8f4f1; --gold:#e1b45c;
+      --ink:#1a343c; --muted:#547077; --line:#dce9e9; --white:#fff;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:#f8fbfa;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+    button{font:inherit;cursor:pointer} a{color:inherit}
+    .wrap{width:min(1120px,92vw);margin:auto}
+    .top{background:var(--white);border-bottom:1px solid var(--line)}
+    .top .wrap{min-height:77px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.08rem;text-decoration:none;color:var(--navy)}
+    .brandmark{display:grid;place-items:center;background:var(--navy);color:#fff;border-radius:13px;width:43px;height:43px;font-size:1.4rem}
+    .nav{display:flex;align-items:center;gap:24px;font-size:.9rem}
+    .nav a{text-decoration:none;font-weight:600}
+    .btn{border:0;background:var(--navy);color:white;padding:12px 21px;border-radius:12px;font-weight:750;box-shadow:0 7px 20px #103b4820}
+    .btn:hover,.chat-toggle:hover{background:var(--blue)}
+    .btn.secondary{color:var(--navy);background:#fff;border:1px solid var(--line);box-shadow:none}
+    .hero{background:radial-gradient(circle at 85% 15%,#2d7680 0%,transparent 35%),linear-gradient(125deg,#103b48 15%,#1b5b69);color:#fff;padding:80px 0 74px}
+    .hero .wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(270px,.7fr);gap:50px;align-items:center}
+    .tag{display:inline-block;color:#dbfff6;border:1px solid #8ddcc67a;background:#ffffff12;border-radius:100px;padding:5px 14px;font-size:.8rem;font-weight:700}
+    h1{font-size:clamp(2.25rem,5vw,3.7rem);line-height:1.12;letter-spacing:-.04em;margin:19px 0}
+    .hero p{font-size:1.13rem;color:#d6e8e7;max-width:650px}
+    .hero .btn{background:var(--gold);color:#243735;margin-top:18px}
+    .hero .btn:hover{background:#f1c776}
+    .hero-card{background:#ffffff13;border:1px solid #ffffff3a;border-radius:24px;padding:32px;backdrop-filter:blur(10px)}
+    .hero-card span{display:block;color:#b9d9d8;font-size:.86rem;font-weight:700;margin-bottom:10px}
+    .hero-card strong{font-size:1.2rem;line-height:1.35;display:block}
+    .hero-card p{font-size:.92rem}
+    section.info{padding:68px 0}
+    .kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.15em;font-weight:800;color:var(--blue)}
+    h2{font-size:clamp(1.8rem,3vw,2.3rem);letter-spacing:-.035em;margin:7px 0 9px;line-height:1.2}
+    .section-note{color:var(--muted);margin-bottom:28px}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .card{background:var(--white);border:1px solid var(--line);border-radius:19px;padding:26px;box-shadow:0 7px 30px #123b4609}
+    .card-icon{display:grid;place-items:center;border-radius:14px;width:54px;height:54px;background:var(--mint);font-size:1.65rem}
+    .card h3{margin:18px 0 4px;font-size:1.15rem}
+    .card p{color:var(--muted);font-size:.96rem;min-height:75px}
+    .textlink{background:none;border:0;color:var(--blue);font-weight:800;padding:0;text-align:left}
+    .notice{background:#f0f7f5;border:1px solid #cce5dc;padding:22px 26px;border-radius:18px;margin-top:31px;color:#355a5c;font-size:.93rem}
+    .footer{background:#092f3a;color:#d3e3e3;padding:30px 0;font-size:.85rem}
+    .footer strong{color:white}
+    .chat-toggle{position:fixed;right:24px;bottom:23px;z-index:20;border:0;background:var(--navy);color:#fff;border-radius:50px;padding:15px 20px;box-shadow:0 12px 35px #0d344a55;font-weight:750}
+    .chat-panel{position:fixed;right:24px;bottom:87px;z-index:30;width:min(400px,calc(100vw - 28px));height:min(625px,calc(100dvh - 115px));display:none;flex-direction:column;background:#fff;border:1px solid #bcd8d3;border-radius:20px;box-shadow:0 18px 70px #0c364c4a;overflow:hidden}
+    .chat-panel.open{display:flex}
+    .chat-head{display:flex;justify-content:space-between;align-items:center;background:var(--navy);color:#fff;padding:15px 18px}
+    .chat-head strong{display:block}.chat-head small{display:block;opacity:.8;font-size:.75rem}
+    .close-chat{background:none;border:0;color:#fff;font-size:1.4rem;padding:0 5px}
+    .chat-messages{flex:1;overflow:auto;padding:15px;background:#f5faf9;display:flex;flex-direction:column;gap:12px}
+    .msg{max-width:88%;padding:11px 13px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.93rem}
+    .msg.assistant{align-self:flex-start;background:#fff;border:1px solid var(--line)}
+    .msg.user{align-self:flex-end;background:#d9efec}
+    .chat-status{display:none;padding:5px 15px;color:var(--muted);font-size:.8rem}
+    .chat-form{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line);background:#fff}
+    .chat-form textarea{flex:1;resize:none;border:1px solid #c9dcd9;border-radius:11px;padding:10px;min-width:0;height:48px;font:inherit;font-size:.9rem}
+    .chat-form button{border:0;background:var(--navy);color:#fff;border-radius:11px;padding:0 14px;font-weight:750}
+    .chat-form button:disabled{opacity:.5;cursor:wait}
+    .privacy{padding:8px 13px;color:var(--muted);text-align:center;font-size:.72rem;border-top:1px solid var(--line)}
+    @media(max-width:750px){.hero{padding:54px 0}.hero .wrap{grid-template-columns:1fr;gap:24px}.cards{grid-template-columns:1fr}.card p{min-height:0}.nav a{display:none}.brand{font-size:.91rem}.chat-panel{right:8px;bottom:78px;width:calc(100vw - 16px);height:calc(100dvh - 90px)}.chat-toggle{right:10px;bottom:11px}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="wrap">
+    <a class="brand" href="#inicio"><span class="brandmark" aria-hidden="true">↗</span> Agente de Venta de Créditos</a>
+    <nav class="nav" aria-label="Navegación principal"><a href="#opciones">Opciones de crédito</a><button class="btn" type="button" data-open-chat>Consultar ahora</button></nav>
+  </div></header>
+
+  <main id="inicio">
+    <section class="hero"><div class="wrap">
+      <div><span class="tag">Asesoría y orientación crediticia</span>
+        <h1>Encuentra orientación para tu próximo crédito</h1>
+        <p>Te ayudamos a conocer alternativas de crédito para asalariados, trabajadores independientes y empresarios. Empieza con nuestro asistente virtual.</p>
+        <button class="btn" type="button" data-open-chat>Hablar con el asistente →</button>
+      </div>
+      <div class="hero-card"><span>ATENCIÓN VIRTUAL</span><strong>Una primera orientación, clara y a tu ritmo.</strong><p>Explora opciones y prepara tus preguntas antes de conversar con un asesor humano.</p></div>
+    </div></section>
+
+    <section class="info" id="opciones"><div class="wrap">
+      <span class="kicker">¿Qué tipo de crédito buscas?</span>
+      <h2>Te orientamos según tu actividad</h2>
+      <p class="section-note">Selecciona una opción para comenzar una conversación informativa con la IA.</p>
+      <div class="cards">
+        <article class="card"><span class="card-icon" aria-hidden="true">💼</span><h3>Personas asalariadas</h3><p>Conoce los aspectos generales que suelen considerar las entidades al evaluar solicitudes.</p><button class="textlink" data-question="Soy asalariado. ¿Qué debo saber antes de consultar por un crédito?" type="button">Consultar esta opción →</button></article>
+        <article class="card"><span class="card-icon" aria-hidden="true">🧰</span><h3>Independientes</h3><p>Infórmate sobre las consideraciones habituales cuando tus ingresos provienen de tu actividad independiente.</p><button class="textlink" data-question="Trabajo de forma independiente. ¿Cómo puedo prepararme para consultar por un crédito?" type="button">Consultar esta opción →</button></article>
+        <article class="card"><span class="card-icon" aria-hidden="true">🏢</span><h3>Empresarios</h3><p>Explora preguntas útiles para evaluar opciones de financiamiento relacionadas con tu negocio.</p><button class="textlink" data-question="Tengo un negocio. ¿Qué debo preguntar al buscar financiamiento empresarial?" type="button">Consultar esta opción →</button></article>
+      </div>
+      <div class="notice"><strong>Información importante:</strong> Las respuestas son orientación general, no una oferta ni una aprobación de crédito. Tasas, plazos, montos y requisitos se confirman con la entidad correspondiente. No compartas datos personales o financieros sensibles en este chat.</div>
+    </div></section>
+  </main>
+  <footer class="footer"><div class="wrap"><strong>Agente de Venta de Créditos</strong><div>Orientación inicial para asalariados, independientes y empresarios.</div></div></footer>
+
+  <button type="button" class="chat-toggle" id="chat-toggle" aria-controls="chat-panel" aria-expanded="false">💬 Consultar</button>
+  <section class="chat-panel" id="chat-panel" aria-label="Chat con asistente virtual" role="dialog" aria-modal="false">
+    <div class="chat-head"><div><strong>Asistente de Créditos</strong><small>Asistente virtual · Orientación general</small></div><button class="close-chat" id="close-chat" type="button" aria-label="Cerrar chat">×</button></div>
+    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite"><div class="msg assistant">¡Hola! Soy el asistente virtual de Agente de Venta de Créditos. ¿Buscas orientación para asalariados, independientes o empresarios?</div></div>
+    <div class="chat-status" id="chat-status" role="status">Escribiendo respuesta…</div>
+    <form class="chat-form" id="chat-form"><textarea id="user-input" rows="1" maxlength="1500" placeholder="Escribe tu consulta..." aria-label="Escribe tu consulta" required></textarea><button type="submit" id="send-button">Enviar</button></form>
+    <div class="privacy">No envíes cédula, teléfono, salario exacto, cuentas ni documentos.</div>
+  </section>
+  <script src="/chat.js" defer></script>
+</body>
+</html>

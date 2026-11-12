@@ -1,0 +1,39 @@
+PERSONALIZACIÓN: Agente de Venta de Créditos
+===========================================
+
+Este paquete contiene SOLAMENTE LOS TRES ARCHIVOS QUE HAY QUE MODIFICAR
+respecto a la plantilla oficial de Cloudflare LLM Chat App:
+
+src/index.ts       -> backend con IA y reglas de asesoría financiera responsable
+public/index.html  -> página de presentación + ventana flotante de chat
+public/chat.js     -> conversación, respuesta progresiva y manejo de errores
+
+NO elimines src/types.ts, wrangler.jsonc ni package.json del repositorio.
+
+CÓMO PUBLICAR
+1. Abre tu repositorio de GitHub que está conectado a Cloudflare.
+2. En la rama main, reemplaza exactamente los tres archivos indicados.
+3. Confirma cada cambio (Commit changes).
+4. En Cloudflare > Workers & Pages > llm-chat-app-template > Deployments
+   comprueba que el último despliegue está en estado Ready.
+5. En Cloudflare > tu Worker > Domains, habilita workers.dev si está desactivado.
+6. Abre la URL REAL que Cloudflare muestre, por ejemplo:
+   https://llm-chat-app-template.TU_SUBDOMINIO.workers.dev
+
+El chatbot y la página web están integrados en LA MISMA URL.
+No hace falta comprar un dominio al principio.
+
+IMPORTANTE
+- El modelo es @cf/google/gemma-4-26b-a4b-it (sustituye Llama 3.1, cuya
+  retirada está prevista para el 20 de noviembre de 2026).
+- El chatbot NO aprueba créditos ni procesa solicitudes.
+- No se han configurado tasas, requisitos, bancos, teléfonos ni WhatsApp.
+- No envíes datos personales sensibles al chat.
+- Agrega políticas de privacidad, controles antiabuso, información legal,
+  condiciones reales y un canal humano verificado antes del lanzamiento comercial.
+- Si se conectó GitHub, edita la rama en GitHub para que tus cambios persistan.
+
+Documentación:
+https://developers.cloudflare.com/workers-ai/get-started/dashboard/
+https://developers.cloudflare.com/workers/configuration/routing/workers-dev/
+https://developers.cloudflare.com/workers-ai/models/gemma-4-26b-a4b-it/
