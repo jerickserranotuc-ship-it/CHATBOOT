@@ -64,3 +64,12 @@ No incluyas teléfonos privados, datos de clientes, expedientes de crédito ni s
 No se integraron formularios que reciban cédulas, vouchers ni datos de cuenta en una infraestructura de prueba. Los botones dirigidos a información sensible abren **los canales originales publicados por la institución**. Verifica con el área operativa antes de replicar cuentas receptoras de pagos.
 
 Para referencias y vínculos exactos, consulta `FUENTES.md`.
+
+
+## V4 — Redes + WhatsApp + identidad
+
+- Barra de cinco redes sociales y enlace principal de WhatsApp.
+- Widget de WhatsApp con ventana de bienvenida y botón **Empezar Chat**, independiente del asistente de Workers AI.
+- Marca institucional extraída de captura suministrada y colocada en cabecera, chatbot, WhatsApp, favicon y home.
+- Se eliminó el texto de la interfaz «Orientación en español» y se mejoró el diseño responsive.
+- Para enlaces confirmados y canal YouTube pendiente, ver `REDES_Y_LOGO.md`.

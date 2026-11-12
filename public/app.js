@@ -17,3 +17,18 @@ function bubble(text,role,sources=[]){const div=document.createElement('div');di
 async function ask(raw){const question=(raw||'').trim();if(!question||busy)return;busy=true;openChat(false);send.disabled=true;input.disabled=true;typing.hidden=false;bubble(question,'user');input.value='';let ctrl=new AbortController();let timer=setTimeout(()=>ctrl.abort(),24000);try{const response=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({message:question,history}),signal:ctrl.signal,cache:'no-store'});const data=await response.json();if(!response.ok&&!data.answer)throw Error(data.error||String(response.status));const answer=String(data.answer||'No encuentro una respuesta verificada. Consultá a Tu Crédito por sus canales oficiales.');bubble(answer,'assistant',data.sources||[]);history.push({role:'user',content:question},{role:'assistant',content:answer});if(history.length>10)history.splice(0,history.length-10);}catch(error){console.error('CHAT_ERROR_CLIENT',error);bubble('No se pudo contactar el servidor de la IA. Podés ver productos, requisitos y contacto en el menú o escribir al WhatsApp institucional (+505) 5854 5354.','assistant',[{title:'Contáctanos',url:'https://www.tucreditonicaragua.com.ni/contactenos/'}]);}finally{clearTimeout(timer);busy=false;send.disabled=false;input.disabled=false;typing.hidden=true;input.focus();}}
 form.addEventListener('submit',event=>{event.preventDefault();ask(input.value);});input.addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();ask(input.value);}});
 document.querySelectorAll('[data-ask]').forEach(button=>button.addEventListener('click',()=>ask(button.dataset.ask)));
+
+// Panel flotante de WhatsApp: no almacena conversaciones ni simula envíos.
+(function(){
+  const launch=document.getElementById('wa-launch');
+  const panel=document.getElementById('wa-panel');
+  const close=document.getElementById('wa-close');
+  if(!launch||!panel||!close)return;
+  const time=document.getElementById('wa-time');
+  if(time)time.textContent=new Intl.DateTimeFormat('es-NI',{hour:'2-digit',minute:'2-digit'}).format(new Date());
+  const setOpen=(open)=>{panel.classList.toggle('open',open);panel.setAttribute('aria-hidden',String(!open));launch.setAttribute('aria-expanded',String(open));launch.setAttribute('aria-label',open?'Cerrar atención por WhatsApp':'Abrir atención por WhatsApp');};
+  launch.addEventListener('click',()=>setOpen(!panel.classList.contains('open')));
+  close.addEventListener('click',()=>{setOpen(false);launch.focus()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('open'))setOpen(false)});
+  document.addEventListener('pointerdown',e=>{if(panel.classList.contains('open')&&!e.target.closest('#wa-widget'))setOpen(false)});
+})();
