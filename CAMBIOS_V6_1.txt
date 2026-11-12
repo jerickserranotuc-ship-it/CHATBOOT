@@ -1,0 +1,12 @@
+CHATBOOT V6.1 — CAMBIOS COMPROBABLES
+
+1) Fotografía de asesora: public/assets/asesora-tucredito-v61.webp (generada, 1147×1372 originales).
+2) Asistente virtual: botón y panel a la IZQUIERDA.
+3) WhatsApp: botón y panel a la DERECHA.
+4) Redes: barra visible con Facebook, Instagram, X, LinkedIn y acceso de búsqueda de YouTube.
+5) Eliminada la frase «Orientación en español» del proyecto.
+6) Una ventana se cierra al abrir la otra.
+7) URL /api/version indica V6.1 y los lados de cada botón.
+8) El generador scripts/generar_paginas.py produce todas las páginas con la misma V6.1.
+
+ATENCIÓN: Es código preparado para GitHub, NO está desplegado en Cloudflare.

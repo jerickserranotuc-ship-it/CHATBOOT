@@ -1,4 +1,4 @@
-# Pruebas de V6
+# Pruebas de V6.1
 
 Comprobadas en el contenedor de trabajo el 12-11-2026.
 
@@ -8,7 +8,7 @@ Comprobadas en el contenedor de trabajo el 12-11-2026.
 - `transpileModule` de TypeScript para `src/index.ts`, `src/catalog.ts`, `src/sucursales.ts`, `src/types.ts` → sin errores de sintaxis.
 - Vista previa aislada con Chromium: portada de 1440px y 390px; sucursal León de 1365px; sin errores de página ni scroll horizontal.
 - Interacciones de navegador: WhatsApp cerrado → abierto, menú móvil `aria-expanded` cambia a `true`.
-- Capturas: `CHATBOOT_V6_PORTADA_ESCRITORIO.png`, `CHATBOOT_V6_PORTADA_MOVIL.png`, `CHATBOOT_V6_SUCURSAL_LEON.png` entregadas fuera del ZIP.
+- Capturas: `CHATBOOT_V6.1_PORTADA_ESCRITORIO.png`, `CHATBOOT_V6.1_PORTADA_MOVIL.png`, `CHATBOOT_V6.1_SUCURSAL_LEON.png` entregadas fuera del ZIP.
 
 **Pendiente de comprobar en Cloudflare:** despliegue real, binding Workers AI, `/api/chat`, tiempos de respuesta, protección antiabuso, accesibilidad integral, resolución de dominios, carga de medios, formulario oficial y acciones de atención humana.
 

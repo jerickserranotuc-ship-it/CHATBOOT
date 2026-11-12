@@ -154,6 +154,61 @@ body{color:#152b4b;background:white}
 @media(max-width:490px){.v6-hero h1{font-size:39px}.v6-hero-visual{height:320px}.v6-floating-wa{font-size:11px;bottom:14px}.v6-floating-wa strong{font-size:11px}.v6-floating-wa small{font-size:10px}.v6-hero-traits{gap:7px}.v6-hero-traits>div{grid-template-columns:1fr}.v6-trait-icon{grid-row:auto}.v6-product-grid{gap:12px}.v6-product-card{padding:18px 14px;min-height:230px}.v6-card-icon{height:45px;width:45px;font-size:24px}.v6-product-card h3{font-size:16px}.v6-product-card p{font-size:12px}.v6-branch-card img{height:99px}.v6-directory-grid{grid-template-columns:1fr}.v6-mini-branches{grid-template-columns:1fr 1fr}.v6-branch-hero h1{font-size:42px}.v6-contact-grid{grid-template-columns:1fr}.v6-hero-actions{gap:8px}.v6-btn{width:auto;font-size:12px;min-height:48px;padding:9px 11px}.v6-cta-inner .v6-btn{width:100%}.chat-launch{right:94px}.wa-launch{right:14px}}
 @media(prefers-reduced-motion:reduce){.v6-btn,.v6-product-card,.v6-branch-card,.v6-directory-card{transition:none}}
 
-.chat-launch{left:auto!important;right:102px!important;width:max-content!important;max-width:180px!important;min-width:0!important;}
-@media(max-width:490px){.chat-launch{right:91px!important;max-width:55px!important;} .chat-launch b{display:none!important}}
 .v6-legacy-articles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.v6-legacy-article{border:1px solid #e4eaf5;border-radius:17px;padding:19px;background:#fff}.v6-legacy-article span{font-size:10px;letter-spacing:1px;color:#ae7a00;font-weight:900}.v6-legacy-article h3{font-size:16px;color:#12386c;line-height:1.32;margin:10px 0}.v6-legacy-article p{font-size:12px;color:#71849b}@media(max-width:750px){.v6-legacy-articles{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:490px){.v6-legacy-articles{grid-template-columns:1fr}}
+
+
+/* ===============================================================
+   V6.1 — CORRECCIÓN VERIFICABLE DE REQUISITOS DEL CLIENTE
+   IA SIEMPRE A LA IZQUIERDA / WHATSAPP SIEMPRE A LA DERECHA
+   Icons sociales legibles en todas las pantallas, retrato HD real
+   =============================================================== */
+.socialbar{display:block!important;background:#f4f7fd!important;border-top:1px solid #e1e8f2;border-bottom:1px solid #e1e8f2;position:relative;z-index:89}
+.socialbar .socialbar-inner{display:flex!important;align-items:center!important;min-height:62px!important;justify-content:space-between!important;gap:16px!important;padding-top:8px!important;padding-bottom:8px!important}
+.socialbar .socialbar-copy{display:inline-block!important;color:#193e77!important;font-size:13px!important;letter-spacing:0!important;font-weight:600!important}
+.socialbar .social-items{display:flex!important;gap:11px!important;align-items:center!important;flex-wrap:nowrap!important}
+.socialbar .social-item{width:39px!important;height:39px!important;font-size:23px!important;flex:0 0 39px!important;border-radius:9px!important;box-shadow:0 3px 11px rgba(15,40,90,.14)!important}
+.socialbar .social-item.facebook{font-size:30px!important;padding-top:6px!important}
+.socialbar .social-item.instagram{font-size:32px!important}
+.socialbar .social-item.x{font-size:22px!important}
+.socialbar .social-item.linkedin{font-size:22px!important}
+.socialbar .social-item.youtube{font-size:21px!important}
+.socialbar .social-whatsapp{display:inline-flex!important;font-size:12px!important;white-space:nowrap!important;padding:8px 10px!important}
+.socialbar .social-whatsapp>span{display:inline!important}
+.v6-hero-visual{isolation:isolate!important;overflow:visible!important}
+.v6-shape{z-index:0!important}
+.v6-portrait{z-index:2!important;display:block!important;opacity:1!important;height:117%!important;width:auto!important;max-width:none!important;right:3%!important;object-fit:contain!important;object-position:bottom!important;filter:drop-shadow(2px 8px 17px rgba(15,43,76,.13))!important}
+.v6-hero-visual-logo{z-index:4!important}
+.v6-floating-wa{z-index:5!important}
+/* ¡No agrupar nunca estos dos botones en el mismo lado! */
+#chat-launch.chat-launch{position:fixed!important;left:22px!important;right:auto!important;bottom:20px!important;max-width:195px!important;min-width:0!important;width:max-content!important;z-index:125!important;padding:11px 17px!important;box-shadow:0 14px 35px rgba(13,48,92,.36)!important}
+#chat-shell.chat-shell{position:fixed!important;left:22px!important;right:auto!important;bottom:88px!important;z-index:130!important;max-height:calc(100dvh - 106px)!important}
+#wa-widget.wa-widget{position:fixed!important;left:auto!important;right:22px!important;bottom:19px!important;z-index:120!important}
+#wa-launch.wa-launch{right:auto!important;bottom:auto!important}
+#wa-panel.wa-panel{position:absolute!important;left:auto!important;right:0!important;bottom:83px!important;max-height:calc(100dvh - 109px)!important;overflow:auto!important}
+@media(max-width:760px){
+ .socialbar .socialbar-inner{min-height:52px!important;gap:10px!important;justify-content:center!important;flex-wrap:wrap!important;padding-top:7px!important;padding-bottom:7px!important}
+ .socialbar .socialbar-copy{display:none!important}
+ .socialbar .social-items{gap:8px!important}
+ .socialbar .social-item{width:34px!important;height:34px!important;flex-basis:34px!important;font-size:19px!important}
+ .socialbar .social-item.facebook{font-size:26px!important;padding-top:5px!important}
+ .socialbar .social-item.instagram{font-size:28px!important}
+ .socialbar .social-item.x{font-size:19px!important}
+ .socialbar .social-whatsapp{display:inline-flex!important;font-size:11px!important;padding:7px 9px!important}
+ .v6-portrait{height:115%!important;right:6%!important;max-width:110%!important}
+ #chat-launch.chat-launch{left:11px!important;right:auto!important;bottom:11px!important;padding:9px 12px!important;max-width:180px!important}
+ #chat-shell.chat-shell{left:8px!important;right:auto!important;bottom:77px!important;width:calc(100vw - 16px)!important;max-height:calc(100dvh - 94px)!important}
+ #wa-widget.wa-widget{right:11px!important;left:auto!important;bottom:11px!important}
+ #wa-panel.wa-panel{right:0!important;left:auto!important;bottom:76px!important;max-width:calc(100vw - 22px)!important}
+}
+@media(max-width:420px){
+ .socialbar .social-item{width:31px!important;height:31px!important;flex-basis:31px!important}
+ .socialbar .social-whatsapp{font-size:0!important;padding:6px!important}
+ .socialbar .social-whatsapp b{font-size:12px!important}
+ .v6-portrait{height:111%!important;right:1%!important}
+ #chat-launch.chat-launch{left:9px!important;bottom:10px!important;max-width:160px!important}
+ #chat-launch.chat-launch b{display:inline!important;font-size:11px!important}
+ #chat-shell.chat-shell{left:6px!important;right:auto!important;bottom:73px!important;width:calc(100vw - 12px)!important}
+ #wa-widget.wa-widget{right:8px!important;bottom:9px!important}
+ #wa-launch.wa-launch{width:57px!important;height:57px!important}
+}
+@media(max-width:345px){#chat-launch.chat-launch b{display:none!important}#chat-launch.chat-launch{width:54px!important;height:54px!important;justify-content:center!important}}

@@ -1,10 +1,14 @@
 {
-  "version": "V6",
-  "build": "tucredito-v6-20261112",
+  "version": "V6.1",
+  "build": "tucredito-v61-20261112-foto-redes-posiciones",
   "platform": "Cloudflare Workers + static assets",
   "html_pages": 50,
   "sucursales": 5,
   "original_website": "https://www.tucreditonicaragua.com.ni/",
   "staging": true,
-  "note": "Logo y fotos de sucursales derivan de la maqueta, no masters HD originales."
+  "note": "Logo y fotos de sucursales derivan de la maqueta, no masters HD originales.",
+  "hero_photo": "public/assets/asesora-tucredito-v61.webp",
+  "assistant_side": "left",
+  "whatsapp_side": "right",
+  "social_buttons": "visible on desktop and mobile"
 }
