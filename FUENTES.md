@@ -1,47 +1,24 @@
-# Fuentes públicas consultadas · 12 de noviembre de 2026
+# Fuentes y trazabilidad de CHATBOOT V6
 
-La información aquí utilizada es pública y se ha resumido para orientación. La institución debe validar su vigencia antes del despliegue comercial.
+Revisión realizada el 12 de noviembre de 2026. La información puede cambiar sin aviso.
 
-## Sitio y empresa
-- Inicio y menú: https://www.tucreditonicaragua.com.ni/
-- Empresa: https://www.tucreditonicaragua.com.ni/quienes-somos/
-- Tipos de crédito: https://www.tucreditonicaragua.com.ni/tipos-de-creditos/
-- Preguntas frecuentes: https://www.tucreditonicaragua.com.ni/preguntas-frecuentes/
-- Contacto: https://www.tucreditonicaragua.com.ni/contactenos/
+- Sitio institucional: https://www.tucreditonicaragua.com.ni/
 - Managua: https://www.tucreditonicaragua.com.ni/sucursales-en-managua/
 - Departamentos: https://www.tucreditonicaragua.com.ni/sucursales-en-los-departamentos/
+- Contacto: https://www.tucreditonicaragua.com.ni/contactenos/
+- Preguntas frecuentes: https://www.tucreditonicaragua.com.ni/preguntas-frecuentes/
+- Producto consumo: https://www.tucreditonicaragua.com.ni/prestamo-consumo/
+- Tienda/otras categorías: https://www.tucreditonicaragua.com.ni/tienda/
+- Solicitud institucional: https://www.tucreditonicaragua.com.ni/solicitud-de-credito-tu-credito/
 
-## Productos y servicios
-- Consumo: https://www.tucreditonicaragua.com.ni/prestamo-consumo/
-- Nómina: https://www.tucreditonicaragua.com.ni/tu-credi-nomina-descuento-de-planilla/
-- Moto: https://www.tucreditonicaragua.com.ni/credito-tu-moto/
-- Convenios: https://www.tucreditonicaragua.com.ni/convenio-financiera-credito/
-- Referidos: https://www.tucreditonicaragua.com.ni/wp-content/uploads/2026/02/01-Circular-administrativa-Refiere-a-un-Cliente-1.pdf
-- Empleo: https://www.tucreditonicaragua.com.ni/solicitud-de-empleo/
-- Solicitud: https://www.tucreditonicaragua.com.ni/solicitud-de-credito-tu-credito/
-- Tienda: https://www.tucreditonicaragua.com.ni/tienda/
+## Fuentes aportadas por el usuario
+- `Tu Crédito WEB Draft.png`: maqueta visual que inspira el diseño V6. De aquí salen los *recortes de referencia* de edificios de la sección de sucursales y una versión ampliada del logotipo.
+- `Plan de Acción TU CREDITO Rediseño WEB - Webmaster y Redes Sociales 2026.pdf`: contenido exigido, mapa histórico de 44 URLs, lineamientos generales de UX, SEO, CMS y comunicación. Las categorías adicionales se indican solo como **mencionadas en el plan, pendientes de vigencia**.
 
-## Transparencia
-- Tarifario institucional fechado 16/06/2026: https://www.tucreditonicaragua.com.ni/wp-content/uploads/2026/07/TARIFARIO-INSTITUCIONAL-16JUNIO2026-1.pdf
-- Contrato de moto: https://www.tucreditonicaragua.com.ni/contrato-de-moto/
-- Contrato sin fiador: https://www.tucreditonicaragua.com.ni/contrato-sin-fiador/
-- Contrato con fiador: https://www.tucreditonicaragua.com.ni/wp-content/uploads/2021/02/Contrato-con-fiador.pdf
-- Reporte de pago: https://www.tucreditonicaragua.com.ni/reporte-de-pago/
-- Reclamos: https://www.tucreditonicaragua.com.ni/reclamos-y-sugerencias/
-- Proceso de reclamos: https://www.tucreditonicaragua.com.ni/wp-content/uploads/2024/10/DIAGRAMA-PROCESO-RECLAMO-2024.pdf
-- Formato de reclamo: https://www.tucreditonicaragua.com.ni/wp-content/uploads/2024/07/Copia-de-Presentacion-de-Reclamo-Queja-y-Consulta-TU-CREDITO-VERSION-6.pdf
-- Atención al cliente: https://www.tucreditonicaragua.com.ni/politica-de-atencion-al-cliente/
-
-## Educación financiera
-- Presupuesto: https://www.tucreditonicaragua.com.ni/wp-content/uploads/2025/06/EDUCACION-FINANCIERA-PRESUPUESTO-EN-5-PASOS.pdf
-- Fórmulas y ejemplos: https://www.tucreditonicaragua.com.ni/wp-content/uploads/2025/05/EDUCACION-FINANCIERA-TU-CREDITO-MAYO-2025.pdf
-- Derechos: https://www.tucreditonicaragua.com.ni/wp-content/uploads/2025/10/TU-CREDITO-DERECHOS-DE-LOS-USUARIOS.png
-- Obligaciones: https://www.tucreditonicaragua.com.ni/wp-content/uploads/2025/10/TU-CREDITO-OBLIGACIONES-DE-LOS-USUARIOS.png
-- Videos y otros recursos: enlaces dentro de `public/educacion-financiera/`.
-
-## Identidad visual
-- Referencias de color/activos de marca (tercero): https://brandfetch.com/tucreditonicaragua.com.ni
-- Material publicado en perfil social institucional: https://x.com/tucreditonic
-- Material visual remoto usado en el prototipo: https://pbs.twimg.com/media/Fx87w3MWIAIetlv.jpg
-
-**Nota:** Hay diferencias entre los requisitos de la sección FAQ (seis meses de estabilidad laboral) y las fichas de Consumo y Moto (doce meses). El chatbot debe mencionar la diferencia y remitir al equipo oficial, sin unificar criterios de manera arbitraria. Las tasas corresponden al tarifario fechado y pueden cambiar.
+## Limitaciones que deben comprobarse
+- Los horarios de las páginas oficiales no coinciden entre secciones; aquí aparece «confirmá con la sucursal», no horario único.
+- El enlace de WhatsApp para León usa el canal central porque no se verificó una línea exclusiva de esa sucursal.
+- Fotografías y logo: no se recuperaron archivos maestros desde el servidor de la empresa; reemplazar los recortes de la maqueta por la biblioteca de medios institucional para publicar.
+- Dirección de Matagalpa: la ficha de departamentos difiere en un detalle de la antigua FAQ. Se da prioridad a la ficha de sucursal, pendiente de aprobación institucional.
+- YouTube: en el panel de redes hay una **búsqueda** y no un canal oficial verificado.
+- No se incluyen claves, tokens, integración bancaria ni envío de documentos financieros.

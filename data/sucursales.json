@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "managua",
+    "name": "Managua",
+    "office": "Casa Matriz · El Retiro",
+    "address": "Comercial El Retiro, de la rotonda El Güegüense 100 metros al sur, mano izquierda.",
+    "phone": "2223 5000",
+    "phone_digits": "50522235000",
+    "wa": "50558545354",
+    "source": "https://www.tucreditonicaragua.com.ni/sucursales-en-managua/",
+    "note": "Es la casa matriz publicada en la sección de sucursales de Managua."
+  },
+  {
+    "slug": "leon",
+    "name": "León",
+    "office": "Sucursal León",
+    "address": "De la esquina de los bancos, 1 cuadra al oeste, media cuadra al norte, en el costado este del edificio central de la UNAN León.",
+    "phone": null,
+    "phone_digits": null,
+    "wa": "50558545354",
+    "source": "https://www.tucreditonicaragua.com.ni/sucursales-en-los-departamentos/",
+    "note": "La página consultada no identifica un WhatsApp exclusivo para León. Se enlaza el canal general."
+  },
+  {
+    "slug": "esteli",
+    "name": "Estelí",
+    "office": "Sucursal Estelí",
+    "address": "INISER, 1 cuadra al oeste.",
+    "phone": "2714 2177",
+    "phone_digits": "50527142177",
+    "wa": "50585017971",
+    "source": "https://www.tucreditonicaragua.com.ni/sucursales-en-los-departamentos/",
+    "note": "WhatsApp de Estelí publicado en el portal oficial."
+  },
+  {
+    "slug": "chinandega",
+    "name": "Chinandega",
+    "office": "Sucursal Chinandega",
+    "address": "De la esquina de los bancos, 1 cuadra al oeste y 30 varas al sur, contiguo al BAC.",
+    "phone": "2341 9103",
+    "phone_digits": "50523419103",
+    "wa": "50581313839",
+    "source": "https://www.tucreditonicaragua.com.ni/sucursales-en-los-departamentos/",
+    "note": "El portal oficial identifica teléfono y WhatsApp para esta sucursal."
+  },
+  {
+    "slug": "matagalpa",
+    "name": "Matagalpa",
+    "office": "Sucursal Matagalpa",
+    "address": "Del Parque Morazán, 2 cuadras al sur y 30 varas al este.",
+    "phone": null,
+    "phone_digits": null,
+    "wa": "50584001094",
+    "source": "https://www.tucreditonicaragua.com.ni/sucursales-en-los-departamentos/",
+    "note": "La dirección que muestra la ficha de sucursales difiere de una FAQ anterior; se utiliza la ficha de sucursales."
+  }
+]

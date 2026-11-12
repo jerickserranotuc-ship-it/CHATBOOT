@@ -1,3 +1,4 @@
+import { sucursales } from './sucursales';
 import { articles, type Article } from './catalog';
 import type { Env } from './types';
 
@@ -70,6 +71,17 @@ async function chat(request:Request, env:Env):Promise<Response>{
     const question= typeof body?.message==='string'?body.message.trim():'';
     if(!question || question.length>1200) return Response.json({error:'Escribí una consulta de hasta 1200 caracteres.'},{status:400});
     if(isSensitive(question)) return Response.json({answer:'Por tu seguridad, no escribás cédula, correo, números de cuenta, contraseñas o documentos aquí. Para gestiones personales utilizá los canales verificados de la institución.',sources:[{title:'Contacto oficial',url:BASE_URL+'contactenos/'}], mode:'seguridad'});
+    // Fichas específicas de cada sucursal: respuestas deterministas con enlaces locales y fuente institucional.
+    const normalizedQuestion=normalize(question);
+    const branch=sucursales.find(b=>normalizedQuestion.includes(normalize(b.name)));
+    if(branch && /(sucursal|ubicaci|direc|donde|horario|telefono|whatsapp|mapa|llegar|oficina|visitar|credito en|prestamo en)/.test(normalizedQuestion)) {
+      const branchPage='/sucursales/'+branch.slug+'/';
+      return Response.json({
+        answer:'Tu Crédito · Sucursal '+branch.name+'. Dirección publicada: '+branch.address+' Para consultar horario actualizado o una solicitud, contactá al WhatsApp '+branch.whatsapp+'. '+(branch.phone?'Teléfono: (+505) '+branch.phone+'. ':'')+' Encontrás cómo llegar, contacto y más detalles en la página de la sucursal. Las condiciones de crédito requieren evaluación.',
+        sources:[{title:'Ficha de sucursal '+branch.name,url:branchPage},{title:'Fuente institucional',url:branch.source}],
+        mode:'sucursal',checked:'2026-11-12'
+      },{headers:{'cache-control':'no-store'}});
+    }
     const found=findArticles(question);
     const history:Msg[] = Array.isArray(body.history)?body.history.slice(-6).filter((m:unknown):m is Msg=> !!m && typeof m==='object' && ((m as Msg).role==='user'||(m as Msg).role==='assistant') && typeof (m as Msg).content==='string').map(m=>({role:m.role,content:m.content.slice(0,600)})):[];
     // Preguntas habituales: respuesta rápida, determinista y siempre disponible aun cuando Workers AI falle.
@@ -89,8 +101,8 @@ async function chat(request:Request, env:Env):Promise<Response>{
 export default {
   async fetch(request:Request,env:Env):Promise<Response>{
     const path=new URL(request.url).pathname;
-    if(path==='/api/version') return Response.json({version:'V5', build:'tucredito-v5-20261112', redes_sociales:true, whatsapp:true, pages:38, knowledge_articles:articles.length}, {headers:{'cache-control':'no-store'}});
-    if(path==='/api/health') return Response.json({status:'ok', ai_binding:!!env.AI, model:MODEL, knowledge_articles:articles.length, build:'tucredito-v5-2026-11-12'});
+    if(path==='/api/version') return Response.json({version:'V6', build:'tucredito-v6-20261112', redes_sociales:true, whatsapp:true, pages:50, branches:sucursales.length, knowledge_articles:articles.length}, {headers:{'cache-control':'no-store'}});
+    if(path==='/api/health') return Response.json({status:'ok', ai_binding:!!env.AI, model:MODEL, knowledge_articles:articles.length, build:'tucredito-v6-2026-11-12'});
     if(path==='/api/chat'){
       if(request.method!=='POST') return new Response('Método no permitido',{status:405});
       return chat(request,env);
@@ -107,7 +119,7 @@ export default {
     }
     const response = await env.ASSETS.fetch(request);
     const headers = new Headers(response.headers);
-    headers.set('x-chatboot-build', 'tucredito-v5-20261112');
+    headers.set('x-chatboot-build', 'tucredito-v6-20261112');
     if ((headers.get('content-type') || '').includes('text/html')) headers.set('cache-control', 'no-cache, must-revalidate');
     return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
   }

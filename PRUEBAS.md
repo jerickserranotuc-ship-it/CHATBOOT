@@ -1,14 +1,15 @@
-# Pruebas de CHATBOOT V5
+# Pruebas de V6
 
-**V5 comprobada localmente el 12 de noviembre de 2026.**
+Comprobadas en el contenedor de trabajo el 12-11-2026.
 
-- Ejecutar `python scripts/verificar_v5.py`: valida 38 rutas con redes sociales, WhatsApp, logotipo, recursos CSS/JS versionados, la API y README V5.
-- Ejecutar `python scripts/generar_paginas.py` y volver a ejecutar el verificador: el generador es idempotente y no elimina redes/WhatsApp.
-- `node --check public/app.js`: revisa sintaxis del frontend.
-- En la web publicada, abrir `/api/version`: debe responder `version: V5` y `build: tucredito-v5-20261112`.
-- En Cloudflare comprobar que `Bindings` incluye `AI` y `ASSETS`, que el último `Deployment` corresponde al commit nuevo y que `/api/health` devuelve `status:ok`.
-- Abrir la web en incógnito o hacer recarga forzada: Ctrl+Shift+R (Windows/Linux) o Cmd+Shift+R (Mac).
-- Probar las cinco redes (YouTube abre una búsqueda, **no** un canal oficial verificado), WhatsApp y el asistente.
-- Antes del lanzamiento, comprobar obligaciones legales, datos de productos, tasas, privacidad y uso de los recursos institucionales.
+- Generación de HTML: `python scripts/generar_paginas.py` → 50 páginas.
+- `python scripts/verificar_v6.py` → 50 páginas, seis rutas bajo `/sucursales/`, enlaces internos y assets locales sin rutas faltantes.
+- `node --check public/app.js` → sintaxis JavaScript correcta.
+- `transpileModule` de TypeScript para `src/index.ts`, `src/catalog.ts`, `src/sucursales.ts`, `src/types.ts` → sin errores de sintaxis.
+- Vista previa aislada con Chromium: portada de 1440px y 390px; sucursal León de 1365px; sin errores de página ni scroll horizontal.
+- Interacciones de navegador: WhatsApp cerrado → abierto, menú móvil `aria-expanded` cambia a `true`.
+- Capturas: `CHATBOOT_V6_PORTADA_ESCRITORIO.png`, `CHATBOOT_V6_PORTADA_MOVIL.png`, `CHATBOOT_V6_SUCURSAL_LEON.png` entregadas fuera del ZIP.
 
-**No se ha podido probar un despliegue real contra la cuenta Cloudflare del usuario desde este entorno.**
+**Pendiente de comprobar en Cloudflare:** despliegue real, binding Workers AI, `/api/chat`, tiempos de respuesta, protección antiabuso, accesibilidad integral, resolución de dominios, carga de medios, formulario oficial y acciones de atención humana.
+
+La verificación `tsc --noEmit` no se pudo completar localmente porque no estaban instaladas las dependencias npm (`@cloudflare/workers-types`). Se incluyen en `package.json` para poder comprobarlas después de `npm install` o durante la compilación de GitHub/Cloudflare.
