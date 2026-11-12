@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "chatboot",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-12",
+  "workers_dev": true,
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./public"
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
