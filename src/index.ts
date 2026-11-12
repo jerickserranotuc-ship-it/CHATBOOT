@@ -89,7 +89,8 @@ async function chat(request:Request, env:Env):Promise<Response>{
 export default {
   async fetch(request:Request,env:Env):Promise<Response>{
     const path=new URL(request.url).pathname;
-    if(path==='/api/health') return Response.json({status:'ok', ai_binding:!!env.AI, model:MODEL, knowledge_articles:articles.length, build:'tucredito-espejo-v3-2026-11-12'});
+    if(path==='/api/version') return Response.json({version:'V5', build:'tucredito-v5-20261112', redes_sociales:true, whatsapp:true, pages:38, knowledge_articles:articles.length}, {headers:{'cache-control':'no-store'}});
+    if(path==='/api/health') return Response.json({status:'ok', ai_binding:!!env.AI, model:MODEL, knowledge_articles:articles.length, build:'tucredito-v5-2026-11-12'});
     if(path==='/api/chat'){
       if(request.method!=='POST') return new Response('Método no permitido',{status:405});
       return chat(request,env);
@@ -104,6 +105,10 @@ export default {
       const file = new URL(path + 'index.html', url.origin);
       return env.ASSETS.fetch(new Request(file.toString(), request));
     }
-    return env.ASSETS.fetch(request);
+    const response = await env.ASSETS.fetch(request);
+    const headers = new Headers(response.headers);
+    headers.set('x-chatboot-build', 'tucredito-v5-20261112');
+    if ((headers.get('content-type') || '').includes('text/html')) headers.set('cache-control', 'no-cache, must-revalidate');
+    return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
   }
 } satisfies ExportedHandler<Env>;

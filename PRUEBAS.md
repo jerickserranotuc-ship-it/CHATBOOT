@@ -1,10 +1,14 @@
-# Pruebas sugeridas antes de aprobar el despliegue
+# Pruebas de CHATBOOT V5
 
-1. Abrir `/api/health` y verificar que el estado es `ok`; 43 fichas; `ai_binding:true` cuando Workers AI esté conectado.
-2. Probar `/`, `/prestamo-consumo/`, `/tu-credi-nomina-descuento-de-planilla/`, `/credito-tu-moto/`, `/preguntas-frecuentes/`, `/educacion-financiera/`, `/reclamos-y-sugerencias/`, `/calculadora-de-cuotas/`.
-3. En escritorio abrir submenús con ratón y teclado; en móvil abrir hamburguesa y desplegables.
-4. Probar calculadora cambiando monto, plazo y tasa; verificar que no se presenta como oferta.
-5. Preguntar al chatbot: "Hola", "Quiero un préstamo de consumo", "¿Qué requisitos piden?", "¿Qué es la TCEA?", "¿Dónde queda la sucursal Estelí?", "¿Cómo reporto mi pago?", "¿Qué es un fondo de emergencia?", "¿Cómo pongo un reclamo?".
-6. Desconectar de forma controlada el binding AI en staging (no producción) y comprobar que las preguntas frecuentes siguen respondiendo por base local.
-7. Confirmar que ninguna página de staging recoja cédula, contraseña o datos bancarios en formularios propios.
-8. Revisar vigencia de tarifas, horarios, teléfonos y enlaces externos; validar jurídicamente todo texto antes de producción.
+**V5 comprobada localmente el 12 de noviembre de 2026.**
+
+- Ejecutar `python scripts/verificar_v5.py`: valida 38 rutas con redes sociales, WhatsApp, logotipo, recursos CSS/JS versionados, la API y README V5.
+- Ejecutar `python scripts/generar_paginas.py` y volver a ejecutar el verificador: el generador es idempotente y no elimina redes/WhatsApp.
+- `node --check public/app.js`: revisa sintaxis del frontend.
+- En la web publicada, abrir `/api/version`: debe responder `version: V5` y `build: tucredito-v5-20261112`.
+- En Cloudflare comprobar que `Bindings` incluye `AI` y `ASSETS`, que el último `Deployment` corresponde al commit nuevo y que `/api/health` devuelve `status:ok`.
+- Abrir la web en incógnito o hacer recarga forzada: Ctrl+Shift+R (Windows/Linux) o Cmd+Shift+R (Mac).
+- Probar las cinco redes (YouTube abre una búsqueda, **no** un canal oficial verificado), WhatsApp y el asistente.
+- Antes del lanzamiento, comprobar obligaciones legales, datos de productos, tasas, privacidad y uso de los recursos institucionales.
+
+**No se ha podido probar un despliegue real contra la cuenta Cloudflare del usuario desde este entorno.**

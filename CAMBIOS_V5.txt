@@ -1,0 +1,12 @@
+VERSIÓN V5 NUEVA — NO ES V3
+
+[NUEVO] Nuevo héroe gráfico sin recurso remoto roto
+[NUEVO] Redes sociales en encabezado y pie en 38 páginas
+[NUEVO] Logo institucional visible en tarjeta central
+[NUEVO] CTA WhatsApp en héroe y bajo cabecera
+[NUEVO] Ventana flotante de WhatsApp con redirección
+[NUEVO] GET /api/version con identificador V5
+[CORREGIDO] README actualizado V5
+[CORREGIDO] Generador conserva redes y WhatsApp en 38 páginas
+[CORREGIDO] CSS/JS versionados y HTML verificable
+[IMPORTANTE] Aún debés desplegarlo en Cloudflare
