@@ -1,39 +1,66 @@
-# CHATBOOT · Propuesta de rediseño Tu Crédito Nicaragua (12/11/2026)
+# Tu Crédito Nicaragua · CHATBOOT V3
 
-Sitio demostrativo completo de navegación, catálogo de productos, simulador educativo, FAQ, sucursales, enlaces oficiales, recursos y asistente de créditos en español.
+## Alcance
 
-## Subir a Cloudflare mediante GitHub
+Este proyecto es una **propuesta de modernización y réplica de la arquitectura pública** del portal de Tu Crédito Nicaragua, preparada para su validación institucional. Incluye **38 rutas HTML** y un chat con **43 fichas de conocimiento verificable** y soporte opcional para Cloudflare Workers AI.
 
-1. Antes de reemplazar, **conservá una copia de tu repositorio actual**.
-2. En la rama `main` de `jerickserranotuc-ship-it/CHATBOOT`, subí **el contenido de esta carpeta**, no la carpeta contenedora.
-3. Conservá rutas `src/index.ts`, `src/catalog.ts`, `src/types.ts`, `public/index.html`, `public/main.js`, `wrangler.jsonc`, `package.json`, `tsconfig.json`.
-4. Confirmá cambios con **Commit changes**; Cloudflare debe iniciar un nuevo despliegue si la integración Git está activa. Alternativa: `npm install && npx wrangler deploy` desde la raíz.
-5. Cloudflare → Workers & Pages → `chatboot` → Settings: verificar binding de Workers AI `AI`, assets `ASSETS` y dominio `workers.dev`.
-6. Abrí `/api/health` en el nuevo dominio. Tiene que devolver `status: ok`, `knowledge_articles` > 20 y `ai_binding:true` si la vinculación está presente.
-7. Probá `/` en ventana privada. Presioná "Solicitar crédito", "Tasas", "Moto", "Sucursales" en el chat.
+- Basado en las secciones y enlaces públicos de `https://www.tucreditonicaragua.com.ni/`, revisados el 12 de noviembre de 2026.
+- Navegación completa con menús Inicio, Empresa, Créditos, Convenios, Contáctanos, Contratos, Empleo, Reporte de Pago, Reclamos y Educación Financiera.
+- Páginas de cada producto, preguntas frecuentes, cinco sedes, contratos, tarifario, calculadora ilustrativa, solicitud, empleo, reclamos y 12 materiales educativos.
+- Colores de referencia de la marca: azul `#1E3864`, amarillo `#FFD140`, celeste `#8ED1FC`.
+- El chatbot responde preguntas frecuentes desde su base local incluso si no hay binding de IA; para dudas más abiertas intenta Workers AI y retorna a la respuesta local si la llamada falla.
+- Los formularios sensibles **no** se clonan ni procesan: redirigen al sitio institucional original. No enviar documentos personales por el chat.
 
-## Por qué el chat responde aun sin IA
+## Importante: fidelidad de la marca
 
-Las consultas habituales obtienen respuestas deterministas y fuentes desde `src/catalog.ts`. Preguntas más abiertas se envían a Workers AI usando `@cf/google/gemma-4-26b-a4b-it` y, si el modelo falla por falta de permisos, límites, capacidad o configuración, se utiliza información local. Los errores reales se registran en Cloudflare → Observability → Workers Logs (`WORKERS_AI_ERROR`). No se entrenó ningún modelo desde cero. La "base de conocimiento" se actualiza editando `src/catalog.ts` y publicando la nueva versión.
+El encabezado intenta mostrar el logo presente en un material público de la cuenta social de Tu Crédito. Si no se puede cargar ese recurso remoto, muestra `public/assets/logo-tu-credito-referencia.svg`, una **recreación de referencia**. **Para una reproducción visual exactamente igual, sustitúyelo por el archivo oficial original** (SVG o PNG) que posea el equipo institucional y confirma las pautas de marca. El gráfico alternativo del héroe es una ilustración vectorial propia; en navegadores que permiten la carga de medios públicos se muestra el material de la cuenta social institucional. Otras fotografías originales, sliders, librerías y formularios de WordPress requieren archivos o acceso a su instalación de origen.
 
-## Limitaciones antes de publicar en producción
+## Publicar sobre el proyecto `chatboot`
 
-- Este prototipo no recibe formularios con cédula, datos personales ni comprobantes. Los botones llevan a páginas verificadas del sitio institucional existente; la integración con su CRM y los formularios requiere backend seguro, control de acceso, protección de datos, auditoría y consentimiento.
-- La calculadora es ilustrativa (amortización de cuota constante sin seguros, comisiones ni ajuste cambiario), no representa la cuota/TCEA contractual.
-- El tarifario utilizado está fechado **16/06/2026**. Revisar vigencia, tasas, contratación, horarios, direcciones y números antes del lanzamiento.
-- El branding visual es una interpretación rediseñada, **no una réplica píxel a píxel** del sitio WordPress. Para un reemplazo fiel de todo su contenido, plugins, medios, formulario y SEO, sería necesario el código fuente/administración o una exportación de WordPress y assets originales.
-- Asegurar permisos sobre logos, fotos, materiales institucionales, identidad visual y cumplimiento legal antes del cambio de dominio.
-- Agregar Cloudflare Turnstile, rate limiting, política de privacidad, seguridad y supervisión humana antes de abrir el chatbot a usuarios reales.
-- Actualizar `src/catalog.ts` cuando cambien productos o tarifas. No hay sincronización automática con la web.
+1. Realiza una copia del repositorio actual `jerickserranotuc-ship-it/CHATBOOT` para poder volver atrás.
+2. Descomprime el ZIP. Abre el repositorio y la rama `main`.
+3. Usa `Add file → Upload files` y arrastra **todo el contenido interior del ZIP**, no la carpeta exterior. Deben quedar `public/`, `src/`, `package.json`, `tsconfig.json`, `wrangler.jsonc`, `.gitignore`, `scripts/` y estos documentos en la raíz. Confirma reemplazar los archivos originales.
+4. Haz `Commit changes`. Tu integración GitHub → Workers debe iniciar un despliegue. Alternativamente, desde una computadora con Node.js: `npm install` y `npm run deploy`.
+5. En Cloudflare → Workers & Pages → `chatboot` → Deployments comprueba `Ready`.
+6. En Settings → Domains & Routes habilita `workers.dev` si está desactivado.
+7. Comprueba `https://<tu-worker>.workers.dev/api/health`: debe dar `status:ok`, `knowledge_articles:43` y `ai_binding:true` si AI está configurado. En Cloudflare deben existir los bindings `AI` (Workers AI) y `ASSETS` (sitio estático).
+8. Abre varias páginas, el menú móvil y el chat. Comprueba que no haya errores en Observability → Workers Logs.
 
-## Diagnóstico rápido
+## Rutas y contenido
 
-- Veo la plantilla **Cloudflare AI Chat** en vez de este diseño: estás abriendo otro Worker, un dominio antiguo o un despliegue no actualizado.
-- `/api/health` devuelve 404: backend viejo, Worker o ruta incorrecta.
-- `ai_binding:false`: falta el binding `AI` en la configuración desplegada.
-- `ai_binding:true` pero respuestas solo de base: revisá logs por errores de Workers AI (por ejemplo, cuota 429, términos, 403 o capacidad).
-- El código TS no se puede subir con **Upload your static files**. Usá GitHub o `wrangler deploy`.
+Las páginas ya fueron generadas dentro de `public/`: `public/index.html`, `public/prestamo-consumo/index.html`, etc. El Worker intercepta una ruta como `/prestamo-consumo/` y sirve internamente `/prestamo-consumo/index.html`. Esto permite enlaces SEO legibles y recarga directa.
 
-## Fuentes
+La navegación se declara en `scripts/generar_paginas.py`. Para **cambiar los menús o textos comunes**, modifica el generador y ejecútalo con `python scripts/generar_paginas.py`. El generador solamente reescribe los archivos HTML de las rutas, no destruye el resto del proyecto. Si modificas páginas manualmente, al regenerar se pueden sobrescribir esas modificaciones; por eso conviene editar el generador.
 
-Ver `FUENTES.md`. Se enlazan recursos institucionales directamente sin almacenar datos personales.
+Los estilos están en `public/styles.css`; la interactividad y el chatbot en `public/app.js`; el modelo y endpoint en `src/index.ts`; el contenido del asistente en `src/catalog.ts`.
+
+## Cómo ampliar la información del chatbot
+
+Edita `src/catalog.ts`. Cada entrada contiene `id`, `title`, `terms` (frases de búsqueda), `answer` (respuesta redactada) y `sources` (enlaces a fuentes públicas). El buscador selecciona las fichas pertinentes por términos; el modelo de IA, si está habilitado y la pregunta no se contesta directamente con la base, recibe **solo las fichas relevantes** como contexto. Esto **no equivale a entrenamiento automático**: hay que mantener los datos y aprobar cada cambio.
+
+No incluyas teléfonos privados, datos de clientes, expedientes de crédito ni secretos en el catálogo.
+
+## Estado de pruebas
+
+- ✅ 38 archivos de páginas HTML generados.
+- ✅ Enlaces internos resueltos: ningún enlace a ruta interna inexistente.
+- ✅ JavaScript revisado con `node --check`.
+- ✅ TypeScript revisado con un shim temporal de tipos compatibles; el código se transpila y ejecuta en pruebas de Worker simuladas.
+- ✅ 7 consultas de referencia respondidas en modo de base local; navegación de rutas, `/api/health`, menú móvil y chat ensayados mediante pruebas locales.
+- ⏳ No se desplegó a Cloudflare desde esta sesión y **no se probó Workers AI real con tu cuenta**.
+- ⏳ Integraciones con CRM, gestión de solicitudes, envío de formularios, cuentas, reclamos, CAPTCHA y analítica requieren diseño y aprobación de seguridad.
+
+## Pendientes de producción
+
+1. Subir el archivo **original oficial del logo** y las fotografías aprobadas (reemplazar recursos remotos de redes sociales para mayor velocidad y disponibilidad).
+2. Validar cada texto y requisito contra la unidad jurídica/comercial, especialmente tarifas, promociones, tiempos de respuesta y condiciones de elegibilidad.
+3. Integrar formularios de solicitud, reportes de pago y reclamos **solo** mediante backend institucional y consentimiento informado; **no** capturar datos sensibles en un simple chat público.
+4. Implementar protección contra abuso (Cloudflare Turnstile, WAF, rate limiting), monitoreo, política de privacidad y retención de información.
+5. Activar el dominio de producción en el DNS oficial y retirar las etiquetas de `noindex,nofollow` del generador y la regla `Disallow: /` de `public/robots.txt` **solamente cuando el portal haya sido aprobado para publicación**. Antes de hacerlo, generar `sitemap.xml` con el dominio de producción definitivo.
+6. Probar accesibilidad, optimización de imágenes, rutas, integraciones y formularios reales en staging y producción.
+
+## Nota sobre datos bancarios
+
+No se integraron formularios que reciban cédulas, vouchers ni datos de cuenta en una infraestructura de prueba. Los botones dirigidos a información sensible abren **los canales originales publicados por la institución**. Verifica con el área operativa antes de replicar cuentas receptoras de pagos.
+
+Para referencias y vínculos exactos, consulta `FUENTES.md`.

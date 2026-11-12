@@ -89,10 +89,20 @@ async function chat(request:Request, env:Env):Promise<Response>{
 export default {
   async fetch(request:Request,env:Env):Promise<Response>{
     const path=new URL(request.url).pathname;
-    if(path==='/api/health') return Response.json({status:'ok', ai_binding:!!env.AI, model:MODEL, knowledge_articles:articles.length, build:'tucredito-redesign-2026-11-12'});
+    if(path==='/api/health') return Response.json({status:'ok', ai_binding:!!env.AI, model:MODEL, knowledge_articles:articles.length, build:'tucredito-espejo-v3-2026-11-12'});
     if(path==='/api/chat'){
       if(request.method!=='POST') return new Response('Método no permitido',{status:405});
       return chat(request,env);
+    }
+    // Las rutas se generan como directorios /ruta/index.html para poder
+    // publicar páginas SEO legibles y navegar directamente sin SPA.
+    const url = new URL(request.url);
+    if (path !== '/' && !path.startsWith('/api/') && !path.includes('.') && !path.endsWith('/')) {
+      return Response.redirect(url.origin + path + '/', 308);
+    }
+    if (path.endsWith('/') && path !== '/') {
+      const file = new URL(path + 'index.html', url.origin);
+      return env.ASSETS.fetch(new Request(file.toString(), request));
     }
     return env.ASSETS.fetch(request);
   }
