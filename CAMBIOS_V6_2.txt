@@ -1,0 +1,10 @@
+CHATBOOT V6.2 — CAMBIOS REALIZADOS
+
+1. Fotos adjuntas en Consumo, Tu Moto y Représtamos.
+2. Infografía adjunta integrada bajo los productos.
+3. Flechas SVG alineadas a los menús desplegables.
+4. Se mantienen IA izquierda / WhatsApp derecha.
+5. Regeneración persistente de 50 páginas.
+6. Endpoint /api/version actualizado a V6.2.
+
+Archivos principales: scripts/generar_paginas.py, public/styles.css, src/index.ts, public/assets/*.webp, public/**/index.html.

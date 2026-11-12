@@ -101,8 +101,8 @@ async function chat(request:Request, env:Env):Promise<Response>{
 export default {
   async fetch(request:Request,env:Env):Promise<Response>{
     const path=new URL(request.url).pathname;
-    if(path==='/api/version') return Response.json({version:'V6.1', build:'tucredito-v61-20261112-foto-redes-posiciones', redes_sociales:true, whatsapp:true, posicion_ia:'izquierda', posicion_whatsapp:'derecha', foto_hero:'asesora-tucredito-v61.webp', pages:50, branches:sucursales.length, knowledge_articles:articles.length}, {headers:{'cache-control':'no-store'}});
-    if(path==='/api/health') return Response.json({status:'ok', ai_binding:!!env.AI, model:MODEL, knowledge_articles:articles.length, build:'tucredito-v61-20261112-foto-redes-posiciones'});
+    if(path==='/api/version') return Response.json({version:'V6.2', build:'tucredito-v62-20261112-fotos-beneficios-menu', redes_sociales:true, whatsapp:true, posicion_ia:'izquierda', posicion_whatsapp:'derecha', foto_hero:'asesora-tucredito-v61.webp', fotos_productos:3, beneficios_imagen:true, menu_chevron_svg:true, pages:50, branches:sucursales.length, knowledge_articles:articles.length}, {headers:{'cache-control':'no-store'}});
+    if(path==='/api/health') return Response.json({status:'ok', ai_binding:!!env.AI, model:MODEL, knowledge_articles:articles.length, build:'tucredito-v62-20261112-fotos-beneficios-menu'});
     if(path==='/api/chat'){
       if(request.method!=='POST') return new Response('Método no permitido',{status:405});
       return chat(request,env);
@@ -119,7 +119,7 @@ export default {
     }
     const response = await env.ASSETS.fetch(request);
     const headers = new Headers(response.headers);
-    headers.set('x-chatboot-build', 'tucredito-v61-20261112-foto-redes-posiciones');
+    headers.set('x-chatboot-build', 'tucredito-v62-20261112-fotos-beneficios-menu');
     if ((headers.get('content-type') || '').includes('text/html')) headers.set('cache-control', 'no-cache, must-revalidate');
     return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
   }

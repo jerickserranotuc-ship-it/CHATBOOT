@@ -11,7 +11,7 @@ for doc in htmls:
  rel='/' if doc==public/'index.html' else '/'+doc.relative_to(public).parent.as_posix()+'/'
  routes.append(rel)
  if not soup.find('h1'):issues.append(f'Falta H1 en {rel}')
- if soup.body and soup.body.get('data-build')!='tucredito-v61-20261112-foto-redes-posiciones':issues.append(f'No es V6 en {rel}')
+ if soup.body and soup.body.get('data-build')!='tucredito-v62-20261112-fotos-beneficios-menu':issues.append(f'No es V6 en {rel}')
  for tag in soup.select('a[href],img[src],script[src],link[href]'):
   v=tag.get('href') or tag.get('src')
   if not v or not v.startswith('/') or v.startswith('//'):continue
@@ -25,7 +25,7 @@ for slug in ['managua','leon','esteli','chinandega','matagalpa']:
  p=public/'sucursales'/slug/'index.html'
  if not p.exists():issues.append(f'No existe sucursal {slug}')
 text=(root/'src/index.ts').read_text('utf8')
-if "version:'V6.1'" not in text:issues.append('Endpoint /api/version no marca V6')
+if "version:'V6.2'" not in text:issues.append('Endpoint /api/version no marca V6')
 if 'pages:50' not in text:issues.append('Contador de páginas incorrecto')
 if 'Orientación en español' in (public/'index.html').read_text('utf8'):issues.append('No se eliminó la frase solicitada')
 if 'asesora-tucredito-v61.webp' not in (public/'index.html').read_text('utf8'):issues.append('No se incorporó la nueva fotografía')
@@ -36,3 +36,12 @@ print('Páginas',len(htmls),'Sucursales',len([x for x in routes if x.startswith(
 for i in issues[:35]: print('ERROR',i)
 if issues:sys.exit(1)
 print('Todas las rutas internas y assets locales están presentes.')
+
+# Verificaciones específicas V6.2
+for name in ['credito-tu-moto-foto.webp','credito-consumo-compras-foto.webp','represtamos-efectivo-foto.webp','beneficios-tu-credito.webp']:
+ if not (public/'assets'/name).exists():raise SystemExit('Falta imagen V6.2: '+name)
+page= (public/'index.html').read_text('utf8')
+if '<svg class="nav-chevron"' not in page:raise SystemExit('Flecha SVG ausente')
+if 'v62-benefits' not in page:raise SystemExit('Franja de beneficios ausente')
+if 'v62-spotlight' not in page:raise SystemExit('Sección représtamos ausente')
+print('VALIDACION_V62_OK')
