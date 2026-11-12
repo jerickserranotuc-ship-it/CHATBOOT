@@ -1,10 +1,8 @@
-/** Tipos del chatbot con Cloudflare Workers AI. */
 export interface Env {
   AI: Ai;
   ASSETS: { fetch: (request: Request) => Promise<Response> };
 }
-
 export interface ChatMessage {
-  role: "system" | "user" | "assistant";
+  role: 'system' | 'user' | 'assistant';
   content: string;
 }

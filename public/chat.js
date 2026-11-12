@@ -1,15 +1,14 @@
-// Interfaz del chat. Usa el mismo dominio y el endpoint /api/chat del Worker.
+// Interfaz del chatbot. Nunca se almacenan conversaciones de visitantes en este frontend.
 const panel = document.getElementById('chat-panel');
 const toggle = document.getElementById('chat-toggle');
-const closeButton = document.getElementById('close-chat');
-const input = document.getElementById('user-input');
+const close = document.getElementById('close-chat');
+const log = document.getElementById('chat-messages');
 const form = document.getElementById('chat-form');
-const messagesElement = document.getElementById('chat-messages');
-const statusElement = document.getElementById('chat-status');
-const sendButton = document.getElementById('send-button');
-
-let busy = false;
-const history = []; // Solo memoria del navegador; no se guarda en una base de datos.
+const input = document.getElementById('user-input');
+const send = document.getElementById('send-button');
+const status = document.getElementById('chat-status');
+let processing = false;
+const messages = [];
 
 function openChat() {
   panel.classList.add('open');
@@ -19,99 +18,95 @@ function openChat() {
 function closeChat() {
   panel.classList.remove('open');
   toggle.setAttribute('aria-expanded', 'false');
-  toggle.focus();
 }
+for (const b of document.querySelectorAll('[data-open-chat]')) b.addEventListener('click', openChat);
 toggle.addEventListener('click', () => panel.classList.contains('open') ? closeChat() : openChat());
-closeButton.addEventListener('click', closeChat);
-document.querySelectorAll('[data-open-chat]').forEach(button => button.addEventListener('click', openChat));
-document.querySelectorAll('[data-question]').forEach(button => button.addEventListener('click', () => {
-  openChat();
-  input.value = button.dataset.question || '';
-  input.focus();
-}));
+close.addEventListener('click', closeChat);
 
-function addMessage(role, content) {
+function addMessage(role, content = '') {
   const el = document.createElement('div');
   el.className = `msg ${role}`;
-  el.textContent = content; // Evita insertar HTML proporcionado por visitantes o el modelo.
-  messagesElement.appendChild(el);
-  messagesElement.scrollTop = messagesElement.scrollHeight;
+  el.textContent = content;
+  log.appendChild(el);
+  log.scrollTop = log.scrollHeight;
   return el;
 }
-
-function parseEvents(buffer) {
-  const normalized = buffer.replace(/\r\n/g, '\n');
-  const parts = normalized.split('\n\n');
-  const rest = parts.pop() || '';
-  const events = parts.map(block => block.split('\n')
-    .filter(line => line.startsWith('data:'))
-    .map(line => line.substring(5).trimStart()).join('\n')).filter(Boolean);
-  return { events, rest };
+function setBusy(value) {
+  processing = value;
+  input.disabled = value;
+  send.disabled = value;
+  status.style.display = value ? 'block' : 'none';
+}
+function extract(eventsBuffer) {
+  const normalized = eventsBuffer.replace(/\r/g, '');
+  const blocks = normalized.split('\n\n');
+  const remaining = blocks.pop() || '';
+  const data = [];
+  for (const block of blocks) {
+    const lines = block.split('\n').filter(x => x.startsWith('data:'));
+    if (lines.length) data.push(lines.map(x => x.slice(5).trimStart()).join('\n'));
+  }
+  return { remaining, data };
 }
 
-async function sendMessage(message) {
-  if (!message || busy) return;
-  busy = true;
+async function submitQuestion(question) {
+  const content = question.trim();
+  if (!content || processing) return;
+  openChat();
   input.value = '';
-  input.disabled = true;
-  sendButton.disabled = true;
-  statusElement.style.display = 'block';
-  addMessage('user', message);
-  history.push({ role: 'user', content: message });
-  const reply = addMessage('assistant', '');
-  let text = '';
+  addMessage('user', content);
+  messages.push({ role: 'user', content });
+  setBusy(true);
+  const answerEl = addMessage('assistant', '');
+  let answer = '';
   try {
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ messages: history.slice(-12) }),
+      body: JSON.stringify({ messages: messages.slice(-12) })
     });
-    if (!response.ok || !response.body) throw new Error('La consulta no pudo completarse');
+    if (!response.ok || !response.body) throw new Error('Respuesta no disponible (' + response.status + ')');
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let buffer = '';
-    let complete = false;
-    while (!complete) {
-      const { done, value } = await reader.read();
-      buffer += done ? decoder.decode() : decoder.decode(value, { stream: true });
-      const parsed = parseEvents(done ? buffer + '\n\n' : buffer);
-      buffer = parsed.rest;
-      for (const data of parsed.events) {
-        if (data === '[DONE]') { complete = true; break; }
-        let item;
-        try { item = JSON.parse(data); } catch { continue; }
-        const chunk = typeof item.response === 'string'
-          ? item.response : (item.choices?.[0]?.delta?.content || '');
-        if (typeof chunk === 'string') {
-          text += chunk;
-          reply.textContent = text;
-          messagesElement.scrollTop = messagesElement.scrollHeight;
+    let doneSignal = false;
+    function consume(data) {
+      if (data === '[DONE]') { doneSignal = true; return; }
+      try {
+        const obj = JSON.parse(data);
+        const segment = typeof obj.response === 'string' ? obj.response :
+          (obj.choices?.[0]?.delta?.content || '');
+        if (segment) {
+          answer += segment;
+          answerEl.textContent = answer;
+          log.scrollTop = log.scrollHeight;
         }
-      }
-      if (done) complete = true;
+      } catch (error) { console.debug('Evento ignorado', error); }
     }
-    if (!text) throw new Error('No hubo respuesta de la IA');
-    history.push({ role: 'assistant', content: text });
-  } catch (err) {
-    console.error(err);
-    reply.textContent = 'No pude responder en este momento. Por favor, inténtalo de nuevo.';
-    history.pop(); // Quita el último mensaje si hubo error y permite reintentar.
+    while (!doneSignal) {
+      const next = await reader.read();
+      if (next.done) break;
+      buffer += decoder.decode(next.value, { stream: true });
+      const parsed = extract(buffer);
+      buffer = parsed.remaining;
+      for (const data of parsed.data) consume(data);
+    }
+    if (!doneSignal && buffer.trim()) {
+      const parsed = extract(buffer + '\n\n');
+      for (const data of parsed.data) consume(data);
+    }
+    if (!answer.trim()) throw new Error('No hubo contenido de respuesta');
+    messages.push({ role: 'assistant', content: answer });
+  } catch (error) {
+    console.error(error);
+    answerEl.textContent = 'No pude responder en este momento. Intentá nuevamente o consultá el sitio oficial: https://www.tucreditonicaragua.com.ni/';
   } finally {
-    busy = false;
-    input.disabled = false;
-    sendButton.disabled = false;
-    statusElement.style.display = 'none';
+    setBusy(false);
     input.focus();
   }
 }
-
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  sendMessage(input.value.trim());
-});
-input.addEventListener('keydown', event => {
-  if (event.key === 'Enter' && !event.shiftKey) {
-    event.preventDefault();
-    form.requestSubmit();
-  }
-});
+form.addEventListener('submit', e => { e.preventDefault(); submitQuestion(input.value); });
+input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitQuestion(input.value); }});
+for (const el of document.querySelectorAll('[data-question]')) {
+  el.addEventListener('click', () => submitQuestion(el.getAttribute('data-question') || ''));
+}
